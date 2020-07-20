@@ -31,3 +31,33 @@ done
 
 echo "Heads won " $count1 " times"
 echo "Tails won " $count2 " times"
+
+echo "Flipping a coin until either head ot tail reaches 21!!!"
+
+declare -A flipcoin
+flipcoin[head]=0
+flipcoin[tail]=0
+
+while [ ${flipcoin[head]} -ne 21 -a ${flipcoin[tail]} -ne 21 ]
+do
+	res=$((RANDOM%2))
+	if [ $res -eq 1 ]
+	then
+		flipcoin[head]=$((${flipcoin[head]}+1))
+	else
+		flipcoin[tail]=$((${flipcoin[tail]}+1))
+	fi
+done
+
+echo "Head " ${flipcoin[head]}
+echo "Tail " ${flipcoin[tail]}
+
+if [ ${flipcoin[head]} -gt ${flipcoin[tail]} ]
+then
+	echo "Head won by: " $((${flipcoin[head]}-${flipcoin[tail]}))
+elif [ ${flipcoin[head]} -eq ${flipcoin[tail]} ]
+then
+	echo "Its a tie"
+else
+	echo "Tail won by " $((${flipcoin[tail]}-${flipcoin[head]}))
+fi
